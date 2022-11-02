@@ -20,166 +20,230 @@
     }
   },
   {
-    "label": "Send form notifications to specified email addresses instead of the form defaults",
-    "name": "notifications_are_overridden",
-    "id": "96a2942d-c746-0299-c0a9-6b16d7a20c1d",
-    "type": "boolean",
-    "visibility": {
-      "controlling_field": "e4adbe47-d462-2396-c7e7-62d52c812966",
-      "controlling_value_regex": "^((?!\\\"form_type\\\":\\\"TICKET_FORM\\\").)*$",
-      "operator": "MATCHES_REGEX",
-      "access": null,
-      "hidden_subfields": null
-    },
-    "default": false
-  },
-  {
-    "label": "Email Addresses",
-    "name": "notifications_override_email_addresses",
-    "id": "e496f0fb-4c96-8a5f-5fa3-54a5838f02a2",
-    "type": "email",
-    "visibility": {
-      "controlling_field": "96a2942d-c746-0299-c0a9-6b16d7a20c1d",
-      "controlling_value_regex": "true",
-      "operator": "MATCHES_REGEX",
-      "access": null,
-      "hidden_subfields": null
-    },
-    "allow_custom_email_addresses": false,
-    "default": null
-  },
-  {
-    "label": "Add to workflow",
-    "name": "follow_up_type_automation",
-    "id": "fc055bb2-4052-dee0-a007-2dc5a6bfe906",
-    "type": "boolean",
-    "visibility_rules": "ADVANCED",
-    "advanced_visibility": {
-      "boolean_operator": "AND",
-      "criteria": [
-        {
-          "access": {
-            "operator": "HAS_ALL",
-            "scopes": ["workflows-access"]
-          }
-        },
-        {
-          "controlling_field": "1fbfa2b1-63d5-f8a8-098f-b4180617b9a8",
-          "operator": "NOT_EMPTY"
-        },
-        {
-          "controlling_field": "fc055bb2-4052-dee0-a007-2dc5a6bfe906",
-          "operator": "EQUAL",
-          "controlling_value_regex": "true"
-        }
-      ]
-    },
-    "default": false
-  },
-  {
-    "label": "Workflow",
-    "name": "form_follow_ups_workflow_id",
-    "id": "1fbfa2b1-63d5-f8a8-098f-b4180617b9a8",
-    "visibility_rules": "ADVANCED",
-    "type": "workflow",
-    "advanced_visibility": {
-      "boolean_operator": "AND",
-      "criteria": [
-        {
-          "controlling_field": "fc055bb2-4052-dee0-a007-2dc5a6bfe906",
-          "controlling_value_regex": "true",
-          "operator": null,
-          "access": null,
-          "hidden_subfields": null
-        },
-        {
-          "controlling_field": "1fbfa2b1-63d5-f8a8-098f-b4180617b9a8",
-          "operator": "NOT_EMPTY"
-        }
-      ]
-    },
-    "default": null
-  },
-  {
-    "label": "Send a follow-up email",
-    "name": "follow_up_type_simple",
-    "id": "072ce88d-62f2-604d-feab-f8199eeb40f7",
-    "type": "boolean",
-    "help_text": "To send a follow-up email, make sure the 'Set contacts created as marketing contacts’ setting is turned on. You can manage this in options. <a href='https://knowledge.hubspot.com/contacts/set-contacts-as-marketing#set-the-default-marketing-status-for-new-contacts'>Learn more</a>",
-    "visibility_rules": "ADVANCED",
-    "advanced_visibility": {
-      "boolean_operator": "AND",
-      "criteria": [
-        {
-          "access": {
-            "operator": "HAS_ALL",
-            "scopes": ["email-marketing-product-access"]
-          }
-        }
-      ],
-      "children": [
-        {
-          "boolean_operator": "OR",
-          "criteria": [
-            {
-              "access": {
-                "operator": "HAS_NONE",
-                "gates": ["ContextualAutomation:FormsEmailsAccess"]
-              }
-            }
-          ],
-          "children": [
-            {
-              "boolean_operator": "AND",
-              "criteria": [
-                {
-                  "controlling_field": "fa108c7e-d78d-9edd-f015-f3d8e35fb790",
-                  "operator": "NOT_EMPTY"
+    "label": "Styles",
+    "name": "styles",
+    "type": "group",
+    "tab": "STYLE",
+    "children": [
+      {
+        "label": "Title",
+        "name": "title",
+        "type": "group",
+        "children": [
+          {
+            "label": "Text",
+            "name": "text",
+            "type": "group",
+            "children": [
+              {
+                "label": "Color",
+                "name": "color",
+                "type": "color",
+                "visibility": {
+                  "hidden_subfields": {
+                    "opacity": true
+                  }
                 },
-                {
-                  "controlling_field": "072ce88d-62f2-604d-feab-f8199eeb40f7",
-                  "operator": "EQUAL",
-                  "controlling_value_regex": "true"
+                "inherited_value": {
+                  "default_value_path": "theme.forms.title.text.color"
                 }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    "default": false
-  },
-  {
-    "label": "Email",
-    "name": "simple_email_for_live_id",
-    "id": "fa108c7e-d78d-9edd-f015-f3d8e35fb790",
-    "type": "followupemail",
-    "visibility_rules": "ADVANCED",
-    "advanced_visibility": {
-      "boolean_operator": "OR",
-      "criteria": [
-        {
-          "controlling_field": "072ce88d-62f2-604d-feab-f8199eeb40f7",
-          "controlling_value_regex": "true",
-          "operator": "EQUAL",
-          "access": null,
-          "hidden_subfields": null
-        },
-        {
-          "access": {
-            "operator": "HAS_ALL",
-            "gates": ["ContextualAutomation:FormsEmailsAccess"]
+              }
+            ]
           }
-        }
-      ]
-    },
-    "default": null
-  },
-  {
-    "label": "Salesforce campaign",
-    "name": "sfdc_campaign",
-    "id": "82375ac5-e902-3628-b674-1eb8f5397c41",
-    "type": "salesforcecampaign",
-    "default": null
+        ]
+      },
+      {
+        "label": "Labels",
+        "name": "labels",
+        "type": "group",
+        "children": [
+          {
+            "label": "Text",
+            "name": "text",
+            "type": "group",
+            "children": [
+              {
+                "label": "Color",
+                "name": "color",
+                "type": "color",
+                "visibility": {
+                  "hidden_subfields": {
+                    "opacity": true
+                  }
+                },
+                "inherited_value": {
+                  "property_value_paths": {
+                    "color": "theme.forms.labels.text.color.color"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Help text",
+        "name": "help_text",
+        "type": "group",
+        "children": [
+          {
+            "label": "Text",
+            "name": "text",
+            "type": "group",
+            "children": [
+              {
+                "label": "Color",
+                "name": "color",
+                "type": "color",
+                "visibility": {
+                  "hidden_subfields": {
+                    "opacity": true
+                  }
+                },
+                "inherited_value": {
+                  "property_value_paths": {
+                    "color": "theme.forms.help_text.text.color.color"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Fields",
+        "name": "fields",
+        "type": "group",
+        "children": [
+          {
+            "label": "Placeholder",
+            "name": "placeholder",
+            "type": "group",
+            "children": [
+              {
+                "label": "Color",
+                "name": "color",
+                "type": "color",
+                "visibility": {
+                  "hidden_subfields": {
+                    "opacity": true
+                  }
+                },
+                "inherited_value": {
+                  "property_value_paths": {
+                    "color": "theme.forms.fields.placeholder.color.color"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "label": "Text",
+            "name": "text",
+            "type": "group",
+            "children": [
+              {
+                "label": "Color",
+                "name": "color",
+                "type": "color",
+                "visibility": {
+                  "hidden_subfields": {
+                    "opacity": true
+                  }
+                },
+                "inherited_value": {
+                  "property_value_paths": {
+                    "color": "theme.forms.fields.text.color.color"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "label": "Background",
+            "name": "background",
+            "type": "group",
+            "children": [
+              {
+                "label": "Color",
+                "name": "color",
+                "type": "color",
+                "default": {
+                  "color": "#FFFFFF",
+                  "opacity": 100
+                }
+              }
+            ]
+          },
+          {
+            "label": "Border",
+            "name": "border",
+            "type": "group",
+            "children": [
+              {
+                "label" : "Border",
+                "name" : "border",
+                "type" : "border",
+                "default" : {
+                  "top": {
+                    "width": {
+                      "value": 2,
+                      "units": "px"
+                    },
+                    "opacity": 100,
+                    "style": "solid",
+                    "color": "#D1D6DC"
+                  },
+                  "right": {
+                    "width": {
+                      "value": 2,
+                      "units": "px"
+                    },
+                    "opacity": 100,
+                    "style": "solid",
+                    "color": "#D1D6DC"
+                  },
+                  "bottom": {
+                    "width": {
+                      "value": 2,
+                      "units": "px"
+                    },
+                    "opacity": 100,
+                    "style": "solid",
+                    "color": "#D1D6DC"
+                  },
+                  "left": {
+                    "width": {
+                      "value": 2,
+                      "units": "px"
+                    },
+                    "opacity": 100,
+                    "style": "solid",
+                    "color": "#D1D6DC"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "label": "Corner",
+            "name": "corner",
+            "type": "group",
+            "children": [
+              {
+                "label": "Radius",
+                "name": "radius",
+                "type": "number",
+                "display": "text",
+                "max": 100,
+                "step": 1,
+                "suffix": "px",
+                "default": 3
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]
