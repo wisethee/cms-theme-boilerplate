@@ -35,7 +35,6 @@
   letter-spacing: 0.03em;
   position: relative;
   transition: all 0.3s ease-in-out;
-  transition-delay: 0.2s;
   text-decoration: none;
   font-family: 'Oswald', sans-serif;
 }

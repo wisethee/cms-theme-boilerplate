@@ -697,3 +697,8 @@ tfoot td {
   color: {{ h3_font.color }};
   font-size: {{ h3_font.size ~ h3_font.size_unit }};
 }
+
+/* To Be Removed */
+.header {
+  background-color: #395082
+}
